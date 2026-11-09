@@ -31,9 +31,6 @@ for %%i in (
     taskkill /f /im "%%i" >nul 2>&1
 )
 
-REM 等待 2 秒，确保所有残留进程彻底释放
-timeout /t 2 /nobreak >nul
-
 echo ---------------------------------------------------
 echo 正在全力清理中，请稍候...
 
@@ -77,6 +74,12 @@ if exist "%THS_DIR%\history\diagnosis" (
 if exist "%THS_DIR%\history\min" (
     rd /s /q "%THS_DIR%\history\min" >nul 2>&1
     echo [✓] 历史分时缓存清理完毕
+)
+
+:: 6. 清理更新程序
+if exist "%THS_DIR%\download" (
+    rd /s /q "%THS_DIR%\download" >nul 2>&1
+    echo [✓] 更新程序清理完毕
 )
 
 echo ---------------------------------------------------
